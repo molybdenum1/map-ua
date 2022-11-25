@@ -8,6 +8,11 @@ import {
 import mapStyles from "./mapStyles";
 import { formatRelative } from 'date-fns'
 import { useCallback, useRef, useState } from "react";
+import usePlacesAutoComplete, {
+  getGeocode, 
+  getLatLng
+} from 'use-places-autocomplete';
+import {} from 'reach';
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -58,6 +63,7 @@ const Map = () => {
           🚗
         </span>
       </h1>
+      <Search/>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={12}
@@ -102,6 +108,17 @@ function App() {
       <Map />
     </div>
   );
+}
+
+function Search() {
+  const {ready, value, suggestions: {status, data}, setValue, clearSuggestions} = usePlacesAutoComplete({
+    requestOptions: {
+      location: {lat: () => 50.0, lng: () => 36.2292,},
+      radius: 200 * 1000,
+    }
+  });
+
+  return <></>
 }
 
 export default App;
